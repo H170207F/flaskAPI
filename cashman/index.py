@@ -20,7 +20,7 @@ def get_incomes():
     incomes = schema.dump(
         filter(lambda t: t.type == TransactionType.INCOME, transactions)
     )
-    return jsonify(incomes.data)
+    return jsonify(incomes)
 
 
 @app.route('/incomes/<int:income_idx>')
@@ -35,7 +35,7 @@ def get_income(income_idx):
 @app.route('/incomes', methods=['POST'])
 def add_income():
     income = IncomeSchema().load(request.get_json())
-    transactions.append(income.data)
+    transactions.append(income)
     return "", 204
 
 
@@ -45,13 +45,13 @@ def get_expenses():
     expenses = schema.dump(
         filter(lambda t: t.type == TransactionType.EXPENSE, transactions)
     )
-    return jsonify(expenses.data)
+    return jsonify(expenses)
 
 
 @app.route('/expenses', methods=['POST'])
 def add_expense():
     expense = ExpenseSchema().load(request.get_json())
-    transactions.append(expense.data)
+    transactions.append(expense)
     return "", 204
 
 
